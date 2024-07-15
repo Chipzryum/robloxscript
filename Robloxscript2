@@ -1,0 +1,19 @@
+local Baseplate = game.Workspace.Baseplate
+local brick = game.Workspace.brick
+
+local function setting()
+	Baseplate.Material = "Wood"
+	brick.Transparency = 0.5
+	wait(5)
+	Baseplate.Material = "Glass"
+end
+
+local function explode()
+	local explosion = Instance.new('Explosion')
+	explosion.Position = brick.Position
+	explosion.Parent = game.Workspace
+end
+
+
+setting()
+brick.Touched:Connect(explode)
