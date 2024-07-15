@@ -1,0 +1,20 @@
+local myname = "Chipzryum"
+local brick = game.workspace.brick
+local Baseplate = game.Workspace.Baseplate
+
+
+
+local function Changinger()
+	Baseplate.material = "Sand"
+	wait(3)
+	Baseplate.material = "Glass"
+end
+
+
+
+
+
+print(69 .. myname) -- this is a calc
+
+brick.Transparency = 0.5
+Changinger()
