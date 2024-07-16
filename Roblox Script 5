@@ -1,0 +1,58 @@
+local Baseplate = game.Workspace:FindFirstChild("Baseplate")
+local brick = game.Workspace:FindFirstChild("brick")
+local IsTouching = false
+local players = game:GetService("Players")
+
+local function touched()
+
+end
+
+
+
+local function setting()
+	Baseplate.Material = "Wood"
+	brick.Transparency = 0.5
+	wait(5)
+	Baseplate.Material = "Glass"
+end
+
+
+
+local IsTouching = false --// To check if we are touching the Part
+local Part = script.Parent --// The Part we are checking
+
+
+
+brick.Touched:Connect(function(hit) --// Part Touched!
+	if game.Players:GetPlayerFromCharacter(hit.Parent) then
+		IsTouching = true
+		local explosion = Instance.new("Explosion")
+		explosion.Position = brick.Position
+		explosion.Parent = game.Workspace
+		brick.Anchored = false
+	end
+end)
+
+brick.TouchEnded:Connect(function(hit) --// The Touch has ended!
+	if game.Players:GetPlayerFromCharacter(hit.Parent) then
+		IsTouching = false
+		print("Not touching ayo?")
+	end
+end)
+
+setting()
+touched()
+
+
+		--print("Dont touch me")
+		--local explosion = Instance.new('Explosion')
+		--explosion.Position = brick.Position
+		--explosion.Parent = game.Workspace
+		--wait(5)
+		--brick.Transparency = 0.5
+		--brick.Anchored = false
+		
+
+
+
+
