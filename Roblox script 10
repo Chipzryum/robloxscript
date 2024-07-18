@@ -1,0 +1,16 @@
+# SCRIPT ONE (LEADER BOARD) :
+game.Players.PlayerAdded:Connect(function(player)
+	local leaderstats = Instance.new("Folder", player)
+	leaderstats.Name = "leaderstats"
+
+	local points = Instance.new("IntValue", leaderstats)
+	points.Name = "Points"
+end)
+
+# SCRIPT TWO (CLICK FOR COIN)
+script.Parent.ClickDetector.MouseClick:Connect(function(Player)	
+	
+	local PlayerPoints =  Player.leaderstats.Points
+	PlayerPoints.Value += 1
+	
+end)
