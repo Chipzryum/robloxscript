@@ -1,0 +1,82 @@
+local Baseplate = game.Workspace:FindFirstChild("Baseplate")
+local brick = game.Workspace:FindFirstChild("button")
+local IsTouching = false
+local players = game:GetService("Players")
+local kbrick = Instance.new("Part",game.Workspace)
+local IsTouching = false --// To check if we are touching the Part
+local Part = script.Parent --// The Part we are checking
+
+
+
+local function setting()
+	Baseplate.Material = "Wood"
+	brick.Transparency = 0.5
+	wait(5)
+	Baseplate.Material = "Glass"
+end
+
+brick.Touched:Connect(function(touch) --// Part Touched!
+	if game.Players:GetPlayerFromCharacter(touch.Parent) then
+		IsTouching = true
+		local explosion = Instance.new("Explosion")
+		explosion.Position = brick.Position
+		explosion.Parent = game.Workspace
+		brick.Anchored = false
+
+	end
+end)
+
+
+
+kbrick.Touched:Connect(function(hit)
+	if hit.Name == "Part" then
+		wait(nil)
+	elseif hit.Parent:FindFirstChild("Humanoid") then
+		hit.Parent.Humanoid.Health = 0
+	else
+		wait(nil)
+	end
+end)
+
+
+
+kbrick.Name = "susybrick"
+kbrick.Color = Color3.new(255, 0, 0)
+kbrick.Shape = "Cylinder"
+kbrick.Size = Vector3.new(20,69,96)
+kbrick.Position = Vector3.new(50,12,22)
+
+setting()
+
+
+
+	
+local x = 1
+while x<600 do
+	local num = math.random(1,100)
+	local num2 = math.random(1,100)
+	x = x+1
+	wait()
+	local rain = Instance.new("Part", game.Workspace)
+	rain.Anchored = false
+	rain.Position = Vector3.new(num, 100, num2)
+	rain.Color = Color3.new(0.244038, 1, 0.216556)
+	rain.Size = Vector3.new(1, 2, 1)
+	rain.touched:Connect(function(rains)
+	rain.Transparency = 0.3
+			
+		if rains.Parent:FindFirstChild("Humanoid") then
+			rains.Parent.Humanoid.Health = rains.Parent.Humanoid.Health - 2
+		elseif rains ~= "Part" then
+			wait(0.3)
+			rain:Destroy()
+		else
+			wait(nil)
+		end
+	end	)	
+end	
+
+
+--if rains.Name == "Part" then
+--	rains:Destroy()
+--end
