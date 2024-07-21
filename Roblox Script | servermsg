@@ -1,0 +1,24 @@
+wait(5)
+while true do
+	game.StarterGui:SetCore("ChatMakeSystemMessage",{
+		Text = "Your Text"; -- Change this to your text
+		Color = Color3.new(0.0745098, 0.831373, 1); -- You can change the color of the text by adjusting the color code
+		Font = Enum.Font.SourceSansBold;
+		FontSize = Enum.FontSize.Size48
+	})
+	wait(5)
+	game.StarterGui:SetCore("ChatMakeSystemMessage",{
+		Text = "Your Text"; -- Change this to your text
+		Color = Color3.new(0.0745098, 0.831373, 1); -- You can change the color of the text by adjusting the color code
+		Font = Enum.Font.SourceSansBold;
+		FontSize = Enum.FontSize.Size48
+	})
+	wait(5)
+	game.StarterGui:SetCore("ChatMakeSystemMessage",{
+		Text = "Your Text"; -- Change this to your text
+		Color = Color3.new(0.0745098, 0.831373, 1); -- You can change the color of the text by adjusting the color code
+		Font = Enum.Font.SourceSansBold;
+		FontSize = Enum.FontSize.Size48
+	})
+	wait(5)
+end
