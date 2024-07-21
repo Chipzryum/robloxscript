@@ -1,0 +1,66 @@
+local Players = game:GetService("Players")
+local dogcatrain = {"dog", "cat"}
+local density = 0
+
+playerposx = 0
+playerposy = 0
+
+while true do
+	
+	Players.PlayerAdded:Connect(function(playerpos)
+		playerpos.CharacterAdded:Connect(function(character)
+			local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+			while humanoidRootPart do
+				wait(0.5)
+				playerposx = humanoidRootPart.Position.X
+				playerposy = humanoidRootPart.Position.Z
+
+			end
+		end)
+	end)
+	
+	
+	local numx = math.random(playerposx-40, playerposx+40)
+	local numy = math.random(playerposy-40, playerposy+40) --Replace ModelLocation
+	local rain = dogcatrain[math.random(1,#dogcatrain)]
+	local dog = game.Workspace.Dog
+	local cat = game.Workspace.Cat
+
+	
+	if rain == "dog" then
+		local clonedmodel = dog:clone() --Replace ModelLocation
+		clonedmodel.Parent = game.Workspace  -- rain
+		clonedmodel.PrimaryPart.CFrame = CFrame.new(numx,100,numy)   -- rain
+		wait(density)
+		clonedmodel.PrimaryPart.Touched:connect(function(drain) 			-- dograin
+			if drain.Parent:FindFirstChild("Humanoid") then
+				drain.Parent.Humanoid.Health = drain.Parent.Humanoid.Health - 2
+			elseif drain.Parent ~= Players then
+				wait(0.4)
+				clonedmodel:Destroy()
+			end
+		end) 
+
+	elseif rain == "cat" then
+		local clonedmodel = cat:clone() --Replace ModelLocation
+		clonedmodel.Parent = game.Workspace
+		clonedmodel.PrimaryPart.CFrame = CFrame.new(numx,100,numy)   -- rain
+		wait(density)
+		clonedmodel.PrimaryPart.Touched:connect(function(crain) 			-- catrain
+			if crain.Parent:FindFirstChild("Humanoid") then
+				crain.Parent.Humanoid.Health = crain.Parent.Humanoid.Health - 2
+			elseif crain.Parent ~= Players then
+				wait(0.4)
+				clonedmodel:Destroy()
+			end
+		end)
+	end
+end
+
+
+
+
+
+--if rains.Name == "Part" then
+--	rains:Destroy()
+--end
