@@ -1,0 +1,29 @@
+
+script.Parent.ClickDetector.MouseClick:Connect(function(Player)	
+	
+	local RainIntensity = Player.leaderstats.RainIntensity
+	RainIntensity.Value -= 0.1
+	_G.density += 0.1
+end)
+
+
+game.Players.PlayerAdded:Connect(function(player)
+	local leaderboard = Instance.new("Folder", player)
+	leaderboard.Name = "leaderstats"
+
+	local points = Instance.new("NumberValue", leaderboard)
+	points.Name = "RainIntensity"
+
+end)
+
+
+
+
+script.Parent.ClickDetector.MouseClick:Connect(function(Player)	
+	
+	local RainIntensity =  Player.leaderstats.RainIntensity
+	
+	
+	RainIntensity.Value += 0.1
+	_G.density -= 0.1
+end)
