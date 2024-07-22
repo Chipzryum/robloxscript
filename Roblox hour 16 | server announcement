@@ -1,0 +1,21 @@
+local Message = game:GetService('ReplicatedStorage').Message
+
+Message.OnClientEvent:Connect(function(Player)
+	
+	local TextChatService = game:GetService("TextChatService")
+	local TextChannels = TextChatService:WaitForChild("TextChannels")
+
+	print("Heyo!")
+
+	TextChannels.RBXSystem:DisplaySystemMessage("<font color = \"rgb(255,0,0)\">" .. Player.Name .. "</font> Joined!")
+	
+end)
+
+local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(Player)
+
+	game.ReplicatedStorage.Message:FireClient(Player)
+
+
+end)
