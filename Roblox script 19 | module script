@@ -1,0 +1,17 @@
+local module = {}
+	module.acidrainnum = 2
+	
+
+return module
+
+
+-------------------------
+
+button = script.Parent
+local mod = require(game.Workspace.globalvar);
+
+button.ClickDetector.MouseClick:Connect(function(Player)
+	print(mod.acidrainnum)
+	_G.rainnumber = mod.acidrainnum
+	print(_G.rainnumber)
+end)
