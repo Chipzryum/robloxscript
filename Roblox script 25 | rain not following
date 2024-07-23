@@ -1,0 +1,56 @@
+
+-- ACID RAIN
+
+local Players = game:GetService("Players")
+playerposx = 0
+playerposy = 0
+_G.rainchosen = _G.rainnumber
+_G.density = 0.5
+
+local function acidrain()
+	while _G.rainchosen == "acidrain" do
+		Players.PlayerAdded:Connect(function(playerpos)
+			playerpos.CharacterAdded:Connect(function(character)
+				local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+				while HumanoidRootPart do
+					wait()
+					playerposx = HumanoidRootPart.CFrame.Position.X
+					playerposy = HumanoidRootPart.CFrame.Position.Z
+				end
+
+			end)
+		end)
+		wait()
+		local numx = math.random(playerposx-32, playerposx+32)
+		local numy = math.random(playerposy-32, playerposy+32)
+		local rain = Instance.new("Part", game.Workspace)
+		rain.Anchored = false
+		rain.Position = Vector3.new(numx, 100, numy)
+		rain.Color = Color3.new(0.244038, 1, 0.216556)
+		rain.Size = Vector3.new(1.6, 2.7, 1.6)
+		rain.Transparency = 0.7
+		wait(_G.density)
+		rain.touched:Connect(function(rains)
+			if rains.Parent:FindFirstChild("Humanoid") then
+				rains.Parent.Humanoid.Health = rains.Parent.Humanoid.Health - 4
+			elseif rains.Parent ~= Players then
+				wait(0.5)
+				rain:Destroy()
+			else
+				wait(nil)
+			end
+		end	)	
+	end	
+end
+
+-- WHEN BUTTON CLICKED
+
+button = script.Parent
+button.ClickDetector.MouseClick:Connect(function(Player)
+	_G.rainchosen = "acidrain"
+	acidrain()
+end)
+
+
+
+
