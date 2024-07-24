@@ -1,0 +1,15 @@
+button = script.Parent
+button.ClickDetector.MouseClick:Connect(function(Player)
+	if rainchosen == "acidrain" then
+		rainchosen = nil
+		button.BrickColor = BrickColor.new("Really red")
+		wait()
+		button.Material = Enum.Material.SmoothPlastic
+	elseif rainchosen ~= "acidrain" then
+		rainchosen = "acidrain"
+		button.BrickColor = BrickColor.new("Lime green")
+		button.Material = Enum.Material.Neon
+		acidrain()
+
+	end
+end)
