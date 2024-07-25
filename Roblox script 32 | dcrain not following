@@ -1,0 +1,97 @@
+
+
+
+local Players = game:GetService("Players")
+playerposx = 0
+playerposy = 0
+rainchosen = nil
+_G.density = 0.5
+
+-- DOG AND CAT RAIN
+
+local dogcatrain = {"dog", "cat"}
+
+dogorcat = 0
+
+-- player position updater
+
+local function updateplayerposition()
+	while rainchosen == "acidrain" do
+		for _, player in ipairs(Players:GetPlayers()) do
+			if player.Character then
+				local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+				if humanoidRootPart then
+					playerposx = humanoidRootPart.Position.X
+					playerposy = humanoidRootPart.Position.Z
+				end
+			end
+		end
+		wait() -- Adjust the wait time for position updates
+	end
+end
+
+local function dcrain()
+	while rainchosen == "dcrain" do
+		local numx = math.random(playerposx-32, playerposx+32)
+		local numy = math.random(playerposy-32, playerposy+32) --Replace ModelLocation
+		print(playerposx, playerposy)
+		local dog = game.Workspace.Dog
+		local cat = game.Workspace.Cat
+		local rain = dogcatrain[math.random(1,#dogcatrain)]
+		wait(_G.density)
+		if rain == "dog" then
+			local clonedmodel = dog:clone() --Replace ModelLocation
+			clonedmodel.Parent = game.Workspace  -- rain
+			clonedmodel.PrimaryPart.CFrame = CFrame.new(numx,100,numy)   -- rain
+			clonedmodel.PrimaryPart.Touched:connect(function(drain) 			-- dograin
+				if drain.Parent:FindFirstChild("Humanoid") then
+					drain.Parent.Humanoid.Health = drain.Parent.Humanoid.Health - 2
+					clonedmodel:Destroy()
+				elseif drain.Parent ~= Players then
+					wait(0.4)
+					clonedmodel:Destroy()
+				end
+			end) 
+
+		elseif rain == "cat" then
+			local clonedmodel = cat:clone() --Replace ModelLocation
+			clonedmodel.Parent = game.Workspace
+			clonedmodel.PrimaryPart.CFrame = CFrame.new(numx,100,numy)   -- rain
+			clonedmodel.PrimaryPart.Touched:connect(function(crain) 			-- catrain
+				if crain.Parent:FindFirstChild("Humanoid") then
+					crain.Parent.Humanoid.Health = crain.Parent.Humanoid.Health - 2
+					clonedmodel:Destroy()
+				elseif crain.Parent ~= Players then
+					wait(0.4)
+					clonedmodel:Destroy()
+				end
+			end)
+		end
+	end
+end
+-- WHEN BUTTON SWITCH CLICKED
+
+button = script.Parent
+button.ClickDetector.MouseClick:Connect(function(Player)
+	
+	if rainchosen == "dcrain" then
+		rainchosen = nil
+		button.BrickColor = BrickColor.new("Really red")
+		wait()
+		button.Material = Enum.Material.SmoothPlastic
+	elseif rainchosen ~= "dcrain" then
+		rainchosen = "dcrain"
+		button.BrickColor = BrickColor.new("Lime green")
+		button.Material = Enum.Material.Neon
+		spawn(updateplayerposition)
+		spawn(dcrain)
+
+
+	end
+
+
+end)
+
+
+
+
