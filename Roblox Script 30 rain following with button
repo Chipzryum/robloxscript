@@ -1,0 +1,72 @@
+--all variables with _G have either been defined here or in another script
+-- ACID RAIN
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local playerposx, playerposy = 0, 0
+rainchosen = nil
+_G.density = 0.5
+
+-- updating player position
+local function updateplayerposition()
+	while rainchosen == "acidrain" do
+		for _, player in ipairs(Players:GetPlayers()) do
+			if player.Character then
+				local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+				if humanoidRootPart then
+					playerposx = humanoidRootPart.Position.X
+					playerposy = humanoidRootPart.Position.Z
+				end
+			end
+		end
+		wait(0.1) -- Adjust the wait time for position updates
+	end
+end
+
+
+
+local function acidrain()
+	while rainchosen == "acidrain" do
+		wait()
+		local numx = math.random(playerposx-32, playerposx+32)
+		local numy = math.random(playerposy-32, playerposy+32)
+		local rain = Instance.new("Part", game.Workspace)
+		rain.Anchored = false
+		rain.Position = Vector3.new(numx, 100, numy)
+		rain.Color = Color3.new(0.244038, 1, 0.216556)
+		rain.Size = Vector3.new(1.6, 2.7, 1.6)
+		rain.Transparency = 0.7
+		wait(_G.density)
+		rain.touched:Connect(function(rains)
+			if rains.Parent:FindFirstChild("Humanoid") then
+				rains.Parent.Humanoid.Health = rains.Parent.Humanoid.Health - 4
+			elseif rains.Parent ~= Players then
+				wait(0.5)
+				rain:Destroy()
+			else
+				wait(nil)
+			end
+		end	)
+	end	
+end
+
+-- WHEN BUTTON SWITCH CLICKED
+
+switch = false
+
+button = script.Parent
+button.ClickDetector.MouseClick:Connect(function(Player)
+	if rainchosen == "acidrain" then
+		rainchosen = nil
+		button.BrickColor = BrickColor.new("Really red")
+		wait()
+		button.Material = Enum.Material.SmoothPlastic
+	elseif rainchosen ~= "acidrain" then
+		rainchosen = "acidrain"
+		button.BrickColor = BrickColor.new("Lime green")
+		button.Material = Enum.Material.Neon
+		spawn(updateplayerposition)
+		spawn(acidrain)
+
+	end
+end)
