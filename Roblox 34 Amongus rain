@@ -1,0 +1,84 @@
+
+
+
+local Players = game:GetService("Players")
+playerposx = 0
+playerposy = 0
+rainchosen = nil
+_G.density = 0.5
+
+-- AMOGNUS RAIN
+
+
+
+
+
+-- player position updater
+
+local function updateplayerposition()
+	while rainchosen == "amogurain" do
+		for _, player in ipairs(Players:GetPlayers()) do
+			if player.Character then
+				local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+				if humanoidRootPart then
+					playerposx = humanoidRootPart.Position.X
+					playerposy = humanoidRootPart.Position.Z
+					print(playerposx, playerposy)
+				end
+			end
+		end
+		wait(0.2) -- Adjust the wait time for position updates
+	end
+end
+
+local function amogurain()
+	while rainchosen == "amogurain" do
+		local numx = math.random(playerposx-32, playerposx+32)
+		local numy = math.random(playerposy-32, playerposy+32)
+		local amogu = game.Workspace.amongus
+		wait(_G.density)
+		
+		
+		local clonedmodel = amogu:clone()
+		clonedmodel.Parent = game.Workspace	
+		clonedmodel.CFrame = CFrame.new(numx,100,numy)
+
+		clonedmodel.touched:Connect(function(rains)
+			if rains.Parent:FindFirstChild("Humanoid") then
+				rains.Parent.Humanoid.Health = rains.Parent.Humanoid.Health - 4
+				amogu:Destroy()
+			elseif rains.Parent ~= Players then
+				wait(0.5)
+				amogu:Destroy()
+			else
+				wait(nil)
+			end
+		end	)
+	end	
+end
+-- WHEN BUTTON SWITCH CLICKED
+
+button = script.Parent
+button.ClickDetector.MouseClick:Connect(function(Player)
+	
+	if rainchosen == "amogurain" then
+		rainchosen = nil
+		button.BrickColor = BrickColor.new("Really red")
+		wait()
+		button.Material = Enum.Material.SmoothPlastic
+	elseif rainchosen ~= "amogurain" then
+		rainchosen = "amogurain"
+		button.BrickColor = BrickColor.new("Lime green")
+		button.Material = Enum.Material.Neon
+		spawn(updateplayerposition)
+		spawn(amogurain)
+
+
+	end
+
+
+end)
+
+
+
+
