@@ -1,0 +1,9 @@
+local donut = script.Parent
+local player = game:GetService("Players")
+
+donut.Activated:Connect(function()
+	if donut.Parent then
+		local character = donut.Parent
+		player.Character:WaitForChild("Humanoid"):TakeDamage(95)
+	end
+end)
