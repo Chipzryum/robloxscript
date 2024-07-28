@@ -1,0 +1,12 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+local amongus = game.Workspace:WaitForChild("amongus")
+
+while true do
+	wait()
+	local mousetarget = mouse.Target
+	if mousetarget and mousetarget.Name == "amongus" then
+		print("sus")
+		mousetarget:Destroy()
+	end
+end
