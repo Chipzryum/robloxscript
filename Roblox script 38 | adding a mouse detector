@@ -1,0 +1,14 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+while true do
+	wait()
+	mousetarget = mouse.Target
+	
+	print(mousetarget)
+	if mousetarget.Name == "amongus" then
+		print(mouse.Target)
+	else
+		print("NA")
+	end
+end
