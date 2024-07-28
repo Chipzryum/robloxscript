@@ -1,0 +1,51 @@
+local Baseplate = game.Workspace["showcase items"].Baseplate
+local brick = game.Workspace:FindFirstChild("Decrease Rain")
+local IsTouching = false
+local players = game:GetService("Players")
+local kbrick = Instance.new("Part",game.Workspace)
+local IsTouching = false --// To check if we are touching the Part
+local Part = script.Parent --// The Part we are checking
+
+
+
+local function setting()
+	Baseplate.Material = "Wood"
+	brick.Transparency = 0.5
+	wait(2)
+	Baseplate.Material = "Glass"
+end
+
+brick.Touched:Connect(function(touch) --// Part Touched!
+	if game.Players:GetPlayerFromCharacter(touch.Parent) then
+		IsTouching = true
+		local explosion = Instance.new("Explosion")
+		explosion.Position = brick.Position
+		explosion.Parent = game.Workspace
+		brick.Anchored = false
+	end
+end)
+
+
+
+kbrick.Touched:Connect(function(hit)
+	if hit.Name == "Part" then
+		wait(nil)
+	elseif hit.Parent:FindFirstChild("Humanoid") then
+		hit.Parent.Humanoid.Health = 0
+	else
+		wait(nil)
+	end
+end)
+
+
+
+kbrick.Name = "susybrick"
+kbrick.Color = Color3.new(255, 0, 0)
+kbrick.Shape = "Cylinder"
+kbrick.Size = Vector3.new(20,69,96)
+kbrick.Position = Vector3.new(50,12,22)
+
+setting()
+
+
+
